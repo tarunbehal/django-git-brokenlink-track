@@ -90,7 +90,7 @@ class GitIssueTrackMiddleware(object):
         GBT_DEBUG_MODE = getattr(settings, 'GBT_DEBUG_MODE', False)
 
         if GBT_DEBUG_MODE:
-            return True
+            return False
         if not referer:
             return True
 

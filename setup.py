@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django_git_brokenlink_track',
-    version='1.2.1.dev',
+    version='1.4.dev',
     packages=find_packages(),
     install_requires=['requests', 'django>=1.6'],
     keywords='git bug tracking django broken link',
