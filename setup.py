@@ -9,13 +9,11 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django_git_brokenlink_track',
-    version='0.1.1.dev1',
-
+    version='1.0.dev',
     packages=find_packages(),
-    install_requires=['requests'],
+    install_requires=['requests', 'django>=1.6'],
     keywords='git bug tracking django broken link',
-    include_package_data=True,
-    license='MIT',  # example license
+    license='MIT',
     description='Django app which automates the issue creation on Git for broken links.',
     long_description=README,
     url='https://github.com/tarunbehal/django-git-brokenlink-track',
@@ -25,7 +23,6 @@ setup(
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Framework :: Django',
-        'Framework :: Django :: 1.8',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
@@ -44,4 +41,5 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: WSGI :: Middleware',
         'Topic :: Software Development :: Quality Assurance'
     ],
+    zip_safe=True,
 )
