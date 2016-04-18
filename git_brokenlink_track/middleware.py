@@ -17,17 +17,17 @@ ACCESS_TOKEN = '019b58c5ac71c8779f46f16e2311d67443488c0b'
 
 
 def git_managers(subject, message, fail_silently=True):
-    labels = getattr(settings, 'ISSUE_LABEL', None)
+    labels = getattr(settings, 'GBT_ISSUE_LABEL', None)
     issue = {
         'title': subject,
         'body': message,
         'labels': labels
     }
-    url = 'https://api.github.com/repos/%s/%s/issues' % (settings.REPO_OWNER, settings.REPO_NAME)
+    url = 'https://api.github.com/repos/%s/%s/issues' % (settings.GBT_REPO_OWNER, settings.GBT_REPO_NAME)
     r = requests.post(
             url,
             json.dumps(issue),
-            headers={'Authorization': 'token {}'.format(settings.ACCESS_TOKEN)}
+            headers={'Authorization': 'token {}'.format(settings.GBT_ACCESS_TOKEN)}
     )
     if r.status_code == 201:
         msg = 'Successfully created Issue "%s"' % subject
@@ -45,9 +45,9 @@ class GitIssueTrackMiddleware(object):
 
     def test_git_config(self):
         if all([
-            getattr(settings, 'REPO_OWNER', None),
-            getattr(settings, 'REPO_NAME', None),
-            getattr(settings, 'ACCESS_TOKEN', None),
+            getattr(settings, 'GBT_REPO_OWNER', None),
+            getattr(settings, 'GBT_REPO_NAME', None),
+            getattr(settings, 'GBT_ACCESS_TOKEN', None),
         ]):
             return True
         logger.warning('Missing configuration related to REPO_OWNER, REPO_NAME and ACCESS_TOKEN')
@@ -57,7 +57,8 @@ class GitIssueTrackMiddleware(object):
         """
         Create git issues for relevant 404 NOT FOUND responses.
         """
-        if response.status_code == 404 and self.test_git_config():
+        GBT_ENABLED = getattr(settings, 'GBT_ENABLED', False)
+        if response.status_code == 404 and self.test_git_config() and GBT_ENABLED:
             domain = request.get_host()
             path = request.get_full_path()
             referer = force_text(request.META.get('HTTP_REFERER', ''), errors='replace')
@@ -93,6 +94,10 @@ class GitIssueTrackMiddleware(object):
          - If the referer is equal to the current URL, ignoring the scheme
            (assumed to be a poorly implemented bot).
         """
+        GBT_DEBUG_MODE = getattr(settings, 'GBT_DEBUG_MODE', False)
+        
+        if GBT_DEBUG_MODE:
+            return True
         if not referer:
             return True
 

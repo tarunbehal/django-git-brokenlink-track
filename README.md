@@ -19,6 +19,7 @@ DJANGO GIT BROKENLINK TRACKING is a Django app which provides a middleware which
     ]
 
 3. Add DJANGO GIT BROKENLINK TRACKING settings in your settings file:
+	GBT_ENABLED = True # default to False. This flag must be enabled for the broken link tracking to work
 	GBT_DEBUG_MODE = True # If set to true issues will be logged in debug mode as well, default False
 	GBT_REPO_OWNER = 'repo_owner'
 	GBT_REPO_NAME = 'repo_name'
