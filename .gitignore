@@ -29,6 +29,8 @@ media/ media/uploads/*
 
 celerybeat-schedule
 
+dist/
+django_git_brokenlink_track.egg-info/
 .DS_Store
 *.pyc
 *.sqlite3

@@ -18,7 +18,7 @@ setup(
     license='MIT',  # example license
     description='Django app which automates the issue creation on Git for broken links.',
     long_description=README,
-    url='https://www.example.com/',
+    url='https://github.com/tarunbehal/django-git-brokenlink-track',
     author='Tarun Behal',
     author_email='tarunbehal@hotmail.com',
     classifiers=[
