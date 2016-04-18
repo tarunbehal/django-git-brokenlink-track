@@ -8,13 +8,6 @@ import json
 
 logger = logging.getLogger('django')
 
-# Authentication for user filing issue (must have read/write access to
-# repository to add issue to)
-# The repository to add this issue to
-REPO_OWNER = 'tarunbehal'
-REPO_NAME = 'cores'
-ACCESS_TOKEN = '019b58c5ac71c8779f46f16e2311d67443488c0b'
-
 
 def git_managers(subject, message, fail_silently=True):
     labels = getattr(settings, 'GBT_ISSUE_LABEL', None)
@@ -95,7 +88,7 @@ class GitIssueTrackMiddleware(object):
            (assumed to be a poorly implemented bot).
         """
         GBT_DEBUG_MODE = getattr(settings, 'GBT_DEBUG_MODE', False)
-        
+
         if GBT_DEBUG_MODE:
             return True
         if not referer:
